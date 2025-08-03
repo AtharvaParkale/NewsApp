@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,8 +18,10 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavGraph
 import com.loc.newsapp.domain.usecases.AppEntryUseCases
 import com.loc.newsapp.presentation.OnboardingViewModel
+import com.loc.newsapp.presentation.nvgraph.NavGraph
 import com.loc.newsapp.presentation.onboarding.OnboardingScreen
 import com.loc.newsapp.ui.theme.NewsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,19 +32,14 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var useCases: AppEntryUseCases
+    val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        installSplashScreen()
-
-        lifecycleScope.launch {
-            useCases.readAppEntry().collect {
-                useCases.readAppEntry().collect {
-                    Log.d("test", it.toString())
-                }
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                viewModel.splashCondition
             }
         }
         setContent {
@@ -51,10 +49,8 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colorScheme.background
                     )
                 ) {
-                    val viewModel: OnboardingViewModel = hiltViewModel()
-                    OnboardingScreen(
-                        event = viewModel::onEvent
-                    )
+                    val startDestination = viewModel.startDestination
+                    NavGraph(startDestination = startDestination)
                 }
 
             }
