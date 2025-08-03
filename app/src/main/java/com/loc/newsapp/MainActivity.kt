@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import com.loc.newsapp.domain.usecases.AppEntryUseCases
+import com.loc.newsapp.presentation.OnboardingViewModel
 import com.loc.newsapp.presentation.onboarding.OnboardingScreen
 import com.loc.newsapp.ui.theme.NewsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,16 +30,18 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var appEntryUseCases :AppEntryUseCases
+    lateinit var useCases: AppEntryUseCases
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window,false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen()
 
-        lifecycleScope.launch{
-            appEntryUseCases.readAppEntry().collect{
-                Log.d("Test",it.toString())
+        lifecycleScope.launch {
+            useCases.readAppEntry().collect {
+                useCases.readAppEntry().collect {
+                    Log.d("test", it.toString())
+                }
             }
         }
         setContent {
@@ -46,8 +50,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.background(
                         color = MaterialTheme.colorScheme.background
                     )
-                ){
-                    OnboardingScreen()
+                ) {
+                    val viewModel: OnboardingViewModel = hiltViewModel()
+                    OnboardingScreen(
+                        event = viewModel::onEvent
+                    )
                 }
 
             }

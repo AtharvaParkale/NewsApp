@@ -19,6 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.loc.newsapp.presentation.OnboardingEvent
 import com.loc.newsapp.presentation.commons.NewsButton
 import com.loc.newsapp.presentation.commons.NewsTextButton
 import com.loc.newsapp.presentation.onboarding.Dimens.MediumPadding2
@@ -29,7 +30,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingScreen() {
+fun OnboardingScreen(
+    event: (OnboardingEvent) -> Unit
+) {
 
     Column(
         modifier = Modifier.fillMaxHeight()
@@ -86,8 +89,8 @@ fun OnboardingScreen() {
                 }
                 NewsButton(text = buttonState.value[1], onClick = {
                     scope.launch {
-                        if (pagerState.currentPage == 3) {
-
+                        if (pagerState.currentPage == 2) {
+                            event(OnboardingEvent.SveAppEntry)
                         } else {
                             pagerState.animateScrollToPage(
                                 page = pagerState.currentPage + 1
