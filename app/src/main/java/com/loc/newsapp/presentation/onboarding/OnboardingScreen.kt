@@ -18,11 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.loc.newsapp.presentation.OnboardingEvent
 import com.loc.newsapp.presentation.commons.NewsButton
 import com.loc.newsapp.presentation.commons.NewsTextButton
 import com.loc.newsapp.presentation.Dimens.MediumPadding2
-import com.loc.newsapp.presentation.Dimens.PageIndicatorWidth
+import com.loc.newsapp.presentation.Dimens.MediumPadding3
 import com.loc.newsapp.presentation.onboarding.components.OnBoardingPage
 import com.loc.newsapp.presentation.onboarding.components.PageIndicator
 import kotlinx.coroutines.launch
@@ -66,7 +67,7 @@ fun OnboardingScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             PageIndicator(
-                modifier = Modifier.width(PageIndicatorWidth),
+                modifier = Modifier.width(52.dp),
                 pageSize = pages.size,
                 selectedPage = pagerState.currentPage,
             )
