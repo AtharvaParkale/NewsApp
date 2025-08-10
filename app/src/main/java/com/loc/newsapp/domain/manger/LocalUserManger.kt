@@ -1,10 +1,11 @@
-package com.loc.newsapp.domain.manager
+package com.loc.newsapp.domain.manger
 
 import kotlinx.coroutines.flow.Flow
 
-interface LocalUserManager {
+interface LocalUserManger {
 
     suspend fun saveAppEntry()
 
     fun readAppEntry(): Flow<Boolean>
+
 }

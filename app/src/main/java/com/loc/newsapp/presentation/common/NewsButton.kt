@@ -1,4 +1,4 @@
-package com.loc.newsapp.presentation.commons
+package com.loc.newsapp.presentation.common
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -17,22 +17,21 @@ fun NewsButton(
     text: String,
     onClick: () -> Unit,
 ) {
+
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = Color.White,
+            contentColor = Color.White
         ),
         shape = RoundedCornerShape(size = 6.dp)
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontWeight = FontWeight.SemiBold
-            )
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
+            color = Color.White
         )
     }
-
 }
 
 @Composable
@@ -40,16 +39,18 @@ fun NewsTextButton(
     text: String,
     onClick: () -> Unit,
 ) {
-    TextButton(
-        onClick = onClick,
-    ) {
+    TextButton(onClick = onClick) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontWeight = FontWeight.SemiBold
-            ),
-            color = WhiteGray,
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
+            color = WhiteGray
         )
     }
-
 }
+
+
+
+
+
+
+

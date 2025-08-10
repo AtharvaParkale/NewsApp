@@ -1,5 +1,4 @@
-package com.loc.newsapp.presentation.commons
-
+package com.loc.newsapp.presentation.common
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.util.Log
@@ -54,8 +53,8 @@ fun SearchBar(
         MutableInteractionSource()
     }
     val isClicked = interactionSource.collectIsPressedAsState().value
-    LaunchedEffect(key1 = isClicked) {
-        if (isClicked) {
+    LaunchedEffect(key1 = isClicked){
+        if(isClicked){
             onClick?.invoke()
         }
     }
@@ -98,16 +97,20 @@ fun SearchBar(
             keyboardActions = KeyboardActions(
                 onSearch = {
                     onSearch()
-                }),
+                }
+            ),
             textStyle = MaterialTheme.typography.bodySmall,
-            interactionSource = interactionSource)
+            interactionSource = interactionSource
+        )
     }
 }
 
 fun Modifier.searchBar(): Modifier = composed {
     if (!isSystemInDarkTheme()) {
         border(
-            width = 1.dp, color = Color.Black, shape = MaterialTheme.shapes.medium
+            width = 1.dp,
+            color = Color.Black,
+            shape = MaterialTheme.shapes.medium
         )
     } else {
         this
@@ -124,3 +127,12 @@ fun SearchBarPreview() {
         }
     }
 }
+
+
+
+
+
+
+
+
+
